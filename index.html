@@ -431,12 +431,29 @@
                         </div>
                     </div>
 
+                    <div class="question" data-id="eauChaude">
+                        <div class="question-title">Production d'eau chaude ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'eauChaude')">Collective</div>
+                            <div class="option" onclick="selectOption(this, 'eauChaude')">Individuelle</div>
+                        </div>
+                    </div>
+
                     <div class="question" data-id="vitrages">
                         <div class="question-title">Type de vitrages ?</div>
                         <div class="options">
                             <div class="option" onclick="selectOption(this, 'vitrages')">Simple</div>
                             <div class="option" onclick="selectOption(this, 'vitrages')">Double</div>
                             <div class="option" onclick="selectOption(this, 'vitrages')">Triple</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="dateConstruction">
+                        <div class="question-title">Date de construction de l'immeuble ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'dateConstruction')">Avant 1979</div>
+                            <div class="option" onclick="selectOption(this, 'dateConstruction')">Après 1979</div>
+                            <div class="option" onclick="selectOption(this, 'dateConstruction')">Ne sais pas</div>
                         </div>
                     </div>
 
@@ -452,13 +469,21 @@
                             <div class="option" onclick="selectOption(this, 'dpe')">G</div>
                         </div>
                     </div>
+
+                    <div class="question" data-id="certification">
+                        <div class="question-title">Le logement dispose-t-il d'une certification (NF Habitat...) ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'certification')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'certification')">Non</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="category">
-                    <h3>🔒 Sécurité</h3>
+                    <h3>🔒 Sécurité et Accès</h3>
                     
                     <div class="question" data-id="digicode">
-                        <div class="question-title">Digicode et sas ?</div>
+                        <div class="question-title">L'immeuble dispose-t-il d'un sas et d'un digicode ?</div>
                         <div class="options">
                             <div class="option" onclick="selectOption(this, 'digicode')">Oui</div>
                             <div class="option" onclick="selectOption(this, 'digicode')">Non</div>
@@ -466,10 +491,19 @@
                     </div>
 
                     <div class="question" data-id="porteBlindee">
-                        <div class="question-title">Porte blindée 3 points ?</div>
+                        <div class="question-title">Porte blindée avec serrure 3 points ?</div>
                         <div class="options">
                             <div class="option" onclick="selectOption(this, 'porteBlindee')">Oui</div>
                             <div class="option" onclick="selectOption(this, 'porteBlindee')">Non</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="parking">
+                        <div class="question-title">Place de parking / garage adaptée et accessible ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'parking')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'parking')">Non</div>
+                            <div class="option" onclick="selectOption(this, 'parking')">Pas de parking</div>
                         </div>
                     </div>
                 </div>
@@ -478,16 +512,17 @@
                     <h3>🪟 Fenêtres & Isolation</h3>
                     
                     <div class="question" data-id="bruits">
-                        <div class="question-title">Bruits gênants ?</div>
+                        <div class="question-title">Entendez-vous des bruits gênants ?</div>
                         <div class="options">
                             <div class="option" onclick="selectOption(this, 'bruits')">Aucun</div>
-                            <div class="option" onclick="selectOption(this, 'bruits')">Légers</div>
-                            <div class="option" onclick="selectOption(this, 'bruits')">Importants</div>
+                            <div class="option" onclick="selectOption(this, 'bruits')">Bruits de pas</div>
+                            <div class="option" onclick="selectOption(this, 'bruits')">Bruits extérieurs</div>
+                            <div class="option" onclick="selectOption(this, 'bruits')">Bruits d'eau</div>
                         </div>
                     </div>
 
                     <div class="question" data-id="etatFenetres">
-                        <div class="question-title">État des fenêtres ?</div>
+                        <div class="question-title">État général des fenêtres (étanchéité) ?</div>
                         <div class="options">
                             <div class="option" onclick="selectOption(this, 'etatFenetres')">Neuf</div>
                             <div class="option" onclick="selectOption(this, 'etatFenetres')">Bon</div>
@@ -496,12 +531,62 @@
                         </div>
                     </div>
 
-                    <div class="question" data-id="lumiere">
-                        <div class="question-title">Luminosité naturelle ?</div>
+                    <div class="question" data-id="volets">
+                        <div class="question-title">Les fenêtres sont-elles équipées de fermetures (volets, persiennes) ?</div>
                         <div class="options">
-                            <div class="option" onclick="selectOption(this, 'lumiere')">Excellente</div>
-                            <div class="option" onclick="selectOption(this, 'lumiere')">Bonne</div>
-                            <div class="option" onclick="selectOption(this, 'lumiere')">Faible</div>
+                            <div class="option" onclick="selectOption(this, 'volets')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'volets')">Partiellement</div>
+                            <div class="option" onclick="selectOption(this, 'volets')">Non</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="gardeCorps">
+                        <div class="question-title">Hauteur des garde-corps supérieure à 1 mètre ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'gardeCorps')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'gardeCorps')">Non</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="lumiere">
+                        <div class="question-title">La pièce à vivre bénéficie-t-elle de lumière naturelle ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'lumiere')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'lumiere')">Non</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🌡️ Chauffage et Radiateurs</h3>
+                    
+                    <div class="question" data-id="typeChauffage">
+                        <div class="question-title">Quel est le type de chauffage ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'typeChauffage')">Électrique</div>
+                            <div class="option" onclick="selectOption(this, 'typeChauffage')">Eau chaude</div>
+                            <div class="option" onclick="selectOption(this, 'typeChauffage')">Gaz</div>
+                            <div class="option" onclick="selectOption(this, 'typeChauffage')">Pompe à chaleur</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="etatChauffage">
+                        <div class="question-title">Le système de chauffage est-il en bon état ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'etatChauffage')">Neuf</div>
+                            <div class="option" onclick="selectOption(this, 'etatChauffage')">Bon</div>
+                            <div class="option" onclick="selectOption(this, 'etatChauffage')">Moyen</div>
+                            <div class="option" onclick="selectOption(this, 'etatChauffage')">Mauvais</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="typeRadiateurs">
+                        <div class="question-title">Type de radiateurs ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'typeRadiateurs')">Convecteurs</div>
+                            <div class="option" onclick="selectOption(this, 'typeRadiateurs')">Panneaux rayonnants</div>
+                            <div class="option" onclick="selectOption(this, 'typeRadiateurs')">Eau chaude</div>
+                            <div class="option" onclick="selectOption(this, 'typeRadiateurs')">Inertie</div>
                         </div>
                     </div>
                 </div>
@@ -510,32 +595,149 @@
                     <h3>⚡ Électricité</h3>
                     
                     <div class="question" data-id="tableauElec">
-                        <div class="question-title">État du tableau électrique ?</div>
+                        <div class="question-title">Le tableau électrique est-il en bon état ?</div>
                         <div class="options">
                             <div class="option" onclick="selectOption(this, 'tableauElec')">Neuf</div>
                             <div class="option" onclick="selectOption(this, 'tableauElec')">Bon</div>
-                            <div class="option" onclick="selectOption(this, 'tableauElec')">Vétuste</div>
+                            <div class="option" onclick="selectOption(this, 'tableauElec')">Moyen</div>
+                            <div class="option" onclick="selectOption(this, 'tableauElec')">Mauvais</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="prisesEtat">
+                        <div class="question-title">Les prises électriques sont-elles en bon état et avec terre ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'prisesEtat')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'prisesEtat')">Non</div>
                         </div>
                     </div>
 
                     <div class="question" data-id="prises">
-                        <div class="question-title">Nombre de prises suffisant ?</div>
+                        <div class="question-title">Nombre de prises suffisant dans chaque pièce ?</div>
                         <div class="options">
                             <div class="option" onclick="selectOption(this, 'prises')">Oui</div>
                             <div class="option" onclick="selectOption(this, 'prises')">Non</div>
                         </div>
                     </div>
+
+                    <div class="question" data-id="eclairages">
+                        <div class="question-title">Alimentations pour lampes au plafond / murs ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'eclairages')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'eclairages')">Non</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="category">
-                    <h3>💨 Ventilation</h3>
+                    <h3>💨 Ventilation et Qualité de l'Air</h3>
                     
                     <div class="question" data-id="ventilation">
-                        <div class="question-title">Type de ventilation ?</div>
+                        <div class="question-title">Système de ventilation ?</div>
                         <div class="options">
-                            <div class="option" onclick="selectOption(this, 'ventilation')">VMC</div>
+                            <div class="option" onclick="selectOption(this, 'ventilation')">VMC simple flux</div>
+                            <div class="option" onclick="selectOption(this, 'ventilation')">VMC double flux</div>
                             <div class="option" onclick="selectOption(this, 'ventilation')">Naturelle</div>
-                            <div class="option" onclick="selectOption(this, 'ventilation')">Aucune</div>
+                            <div class="option" onclick="selectOption(this, 'ventilation')">Aucun</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="bouchesVentilation">
+                        <div class="question-title">Les bouches d'extraction d'air sont-elles en bon état ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'bouchesVentilation')">Neuf</div>
+                            <div class="option" onclick="selectOption(this, 'bouchesVentilation')">Bon</div>
+                            <div class="option" onclick="selectOption(this, 'bouchesVentilation')">Moyen</div>
+                            <div class="option" onclick="selectOption(this, 'bouchesVentilation')">Mauvais</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="ventilationSdb">
+                        <div class="question-title">Salle de bain / WC avec fenêtre ou ventilation ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'ventilationSdb')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'ventilationSdb')">Non</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="hotteCuisine">
+                        <div class="question-title">La cuisine est équipée d'une fenêtre ou hotte aspirante ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'hotteCuisine')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'hotteCuisine')">Non</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🏗️ Structures et Revêtements</h3>
+                    
+                    <div class="question" data-id="revetementSol">
+                        <div class="question-title">Les revêtements de sol sont-ils en bon état ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'revetementSol')">Neuf</div>
+                            <div class="option" onclick="selectOption(this, 'revetementSol')">Bon</div>
+                            <div class="option" onclick="selectOption(this, 'revetementSol')">Moyen</div>
+                            <div class="option" onclick="selectOption(this, 'revetementSol')">Mauvais</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="mursInterieurs">
+                        <div class="question-title">Les murs intérieurs sont-ils en bon état ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'mursInterieurs')">Neuf</div>
+                            <div class="option" onclick="selectOption(this, 'mursInterieurs')">Bon</div>
+                            <div class="option" onclick="selectOption(this, 'mursInterieurs')">Moyen</div>
+                            <div class="option" onclick="selectOption(this, 'mursInterieurs')">Mauvais</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🚿 Plomberie</h3>
+                    
+                    <div class="question" data-id="productionEauChaude">
+                        <div class="question-title">Système de production d'eau chaude sanitaire ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'productionEauChaude')">Ballon électrique</div>
+                            <div class="option" onclick="selectOption(this, 'productionEauChaude')">Ballon solaire</div>
+                            <div class="option" onclick="selectOption(this, 'productionEauChaude')">Ballon gaz</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="mitigeurs">
+                        <div class="question-title">Des mitigeurs sont installés à chaque évier/lavabo ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'mitigeurs')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'mitigeurs')">Non</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🏠 Aménagement</h3>
+                    
+                    <div class="question" data-id="branchements">
+                        <div class="question-title">Arrivées d'eau et branchements électriques suffisants ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'branchements')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'branchements')">Non</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="rangements">
+                        <div class="question-title">Espaces de rangement suffisants ou possibilité d'en installer ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'rangements')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'rangements')">Non</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="internet">
+                        <div class="question-title">L'offre de connexion internet correspond à vos besoins ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'internet')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'internet')">Non</div>
                         </div>
                     </div>
                 </div>
@@ -594,20 +796,41 @@
 
         function calculerScore(reponses) {
             let score = 0;
-            const total = 13;
+            const total = 32;
 
             const bonnesReponses = {
                 chauffage: 'Individuel',
+                eauChaude: 'Individuelle',
                 vitrages: ['Double', 'Triple'],
+                dateConstruction: 'Après 1979',
                 dpe: ['A', 'B', 'C'],
+                certification: 'Oui',
                 digicode: 'Oui',
                 porteBlindee: 'Oui',
+                parking: 'Oui',
                 bruits: 'Aucun',
                 etatFenetres: ['Neuf', 'Bon'],
-                lumiere: ['Excellente', 'Bonne'],
+                volets: ['Oui', 'Partiellement'],
+                gardeCorps: 'Oui',
+                lumiere: 'Oui',
+                typeChauffage: ['Pompe à chaleur', 'Eau chaude'],
+                etatChauffage: ['Neuf', 'Bon'],
+                typeRadiateurs: ['Inertie', 'Eau chaude'],
                 tableauElec: ['Neuf', 'Bon'],
+                prisesEtat: 'Oui',
                 prises: 'Oui',
-                ventilation: 'VMC'
+                eclairages: 'Oui',
+                ventilation: ['VMC simple flux', 'VMC double flux'],
+                bouchesVentilation: ['Neuf', 'Bon'],
+                ventilationSdb: 'Oui',
+                hotteCuisine: 'Oui',
+                revetementSol: ['Neuf', 'Bon'],
+                mursInterieurs: ['Neuf', 'Bon'],
+                productionEauChaude: ['Ballon solaire', 'Ballon électrique'],
+                mitigeurs: 'Oui',
+                branchements: 'Oui',
+                rangements: 'Oui',
+                internet: 'Oui'
             };
 
             for (const [key, value] of Object.entries(reponses)) {
