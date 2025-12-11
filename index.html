@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheckList Visite Appartement</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            background: var(--gray-100);
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-600);
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: white;
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .category {
+            background: var(--gray-50);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .category h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--gray-300);
+        }
+
+        .question.answered {
+            border-left-color: var(--success);
+        }
+
+        .question-title {
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .option {
+            flex: 1;
+            min-width: 100px;
+            padding: 10px;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+
+        .option:hover {
+            border-color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        .option.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .visits-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .visit-card {
+            background: var(--gray-50);
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .visit-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .visit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .visit-title {
+            font-weight: 700;
+            color: var(--gray-800);
+            font-size: 16px;
+        }
+
+        .visit-date {
+            color: var(--gray-600);
+            font-size: 12px;
+        }
+
+        .visit-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .visit-actions button {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .progress-bar {
+            background: var(--gray-200);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--success), #34d399);
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray-600);
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .score-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .score-excellent {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .score-good {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .score-average {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .score-poor {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0;
+            }
+
+            .container {
+                border-radius: 0;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .tab {
+                padding: 12px 8px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏠 CheckList Visite Appartement</h1>
+            <p>Évaluez et comparez vos visites d'appartements</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('nouvelle')">Nouvelle Visite</button>
+            <button class="tab" onclick="switchTab('visites')">Mes Visites</button>
+            <button class="tab" onclick="switchTab('comparaison')">Comparaison</button>
+        </div>
+
+        <div class="content">
+            <!-- Vue: Nouvelle Visite -->
+            <div id="nouvelle" class="view active">
+                <div class="form-group">
+                    <label>Adresse du logement</label>
+                    <input type="text" id="adresse" placeholder="ex: 12 rue de la Paix, 75002 Paris">
+                </div>
+
+                <div class="form-group">
+                    <label>Date de visite</label>
+                    <input type="date" id="dateVisite">
+                </div>
+
+                <div class="category">
+                    <h3>🏠 Général</h3>
+                    
+                    <div class="question" data-id="chauffage">
+                        <div class="question-title">Type de chauffage ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'chauffage')">Collectif</div>
+                            <div class="option" onclick="selectOption(this, 'chauffage')">Individuel</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="vitrages">
+                        <div class="question-title">Type de vitrages ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'vitrages')">Simple</div>
+                            <div class="option" onclick="selectOption(this, 'vitrages')">Double</div>
+                            <div class="option" onclick="selectOption(this, 'vitrages')">Triple</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="dpe">
+                        <div class="question-title">Note DPE ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'dpe')">A</div>
+                            <div class="option" onclick="selectOption(this, 'dpe')">B</div>
+                            <div class="option" onclick="selectOption(this, 'dpe')">C</div>
+                            <div class="option" onclick="selectOption(this, 'dpe')">D</div>
+                            <div class="option" onclick="selectOption(this, 'dpe')">E</div>
+                            <div class="option" onclick="selectOption(this, 'dpe')">F</div>
+                            <div class="option" onclick="selectOption(this, 'dpe')">G</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🔒 Sécurité</h3>
+                    
+                    <div class="question" data-id="digicode">
+                        <div class="question-title">Digicode et sas ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'digicode')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'digicode')">Non</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="porteBlindee">
+                        <div class="question-title">Porte blindée 3 points ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'porteBlindee')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'porteBlindee')">Non</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>🪟 Fenêtres & Isolation</h3>
+                    
+                    <div class="question" data-id="bruits">
+                        <div class="question-title">Bruits gênants ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'bruits')">Aucun</div>
+                            <div class="option" onclick="selectOption(this, 'bruits')">Légers</div>
+                            <div class="option" onclick="selectOption(this, 'bruits')">Importants</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="etatFenetres">
+                        <div class="question-title">État des fenêtres ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'etatFenetres')">Neuf</div>
+                            <div class="option" onclick="selectOption(this, 'etatFenetres')">Bon</div>
+                            <div class="option" onclick="selectOption(this, 'etatFenetres')">Moyen</div>
+                            <div class="option" onclick="selectOption(this, 'etatFenetres')">Mauvais</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="lumiere">
+                        <div class="question-title">Luminosité naturelle ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'lumiere')">Excellente</div>
+                            <div class="option" onclick="selectOption(this, 'lumiere')">Bonne</div>
+                            <div class="option" onclick="selectOption(this, 'lumiere')">Faible</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>⚡ Électricité</h3>
+                    
+                    <div class="question" data-id="tableauElec">
+                        <div class="question-title">État du tableau électrique ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'tableauElec')">Neuf</div>
+                            <div class="option" onclick="selectOption(this, 'tableauElec')">Bon</div>
+                            <div class="option" onclick="selectOption(this, 'tableauElec')">Vétuste</div>
+                        </div>
+                    </div>
+
+                    <div class="question" data-id="prises">
+                        <div class="question-title">Nombre de prises suffisant ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'prises')">Oui</div>
+                            <div class="option" onclick="selectOption(this, 'prises')">Non</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>💨 Ventilation</h3>
+                    
+                    <div class="question" data-id="ventilation">
+                        <div class="question-title">Type de ventilation ?</div>
+                        <div class="options">
+                            <div class="option" onclick="selectOption(this, 'ventilation')">VMC</div>
+                            <div class="option" onclick="selectOption(this, 'ventilation')">Naturelle</div>
+                            <div class="option" onclick="selectOption(this, 'ventilation')">Aucune</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Notes additionnelles</label>
+                    <textarea id="notes" placeholder="Vos remarques, points positifs, négatifs..."></textarea>
+                </div>
+
+                <button class="btn btn-success btn-block" onclick="sauvegarderVisite()">
+                    💾 Sauvegarder cette visite
+                </button>
+            </div>
+
+            <!-- Vue: Mes Visites -->
+            <div id="visites" class="view">
+                <div class="stats" id="stats"></div>
+                <div class="visits-list" id="visitsList"></div>
+            </div>
+
+            <!-- Vue: Comparaison -->
+            <div id="comparaison" class="view">
+                <div id="comparaisonContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const visites = JSON.parse(localStorage.getItem('visites') || '[]');
+        let currentAnswers = {};
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab).classList.add('active');
+
+            if (tab === 'visites') {
+                afficherVisites();
+            } else if (tab === 'comparaison') {
+                afficherComparaison();
+            }
+        }
+
+        function selectOption(element, questionId) {
+            const parent = element.parentElement;
+            parent.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            const question = element.closest('.question');
+            question.classList.add('answered');
+            
+            currentAnswers[questionId] = element.textContent;
+        }
+
+        function calculerScore(reponses) {
+            let score = 0;
+            const total = 13;
+
+            const bonnesReponses = {
+                chauffage: 'Individuel',
+                vitrages: ['Double', 'Triple'],
+                dpe: ['A', 'B', 'C'],
+                digicode: 'Oui',
+                porteBlindee: 'Oui',
+                bruits: 'Aucun',
+                etatFenetres: ['Neuf', 'Bon'],
+                lumiere: ['Excellente', 'Bonne'],
+                tableauElec: ['Neuf', 'Bon'],
+                prises: 'Oui',
+                ventilation: 'VMC'
+            };
+
+            for (const [key, value] of Object.entries(reponses)) {
+                const bonneReponse = bonnesReponses[key];
+                if (Array.isArray(bonneReponse)) {
+                    if (bonneReponse.includes(value)) score++;
+                } else {
+                    if (value === bonneReponse) score++;
+                }
+            }
+
+            return Math.round((score / total) * 100);
+        }
+
+        function getScoreClass(score) {
+            if (score >= 80) return 'score-excellent';
+            if (score >= 60) return 'score-good';
+            if (score >= 40) return 'score-average';
+            return 'score-poor';
+        }
+
+        function getScoreLabel(score) {
+            if (score >= 80) return 'Excellent';
+            if (score >= 60) return 'Bon';
+            if (score >= 40) return 'Moyen';
+            return 'À améliorer';
+        }
+
+        function sauvegarderVisite() {
+            const adresse = document.getElementById('adresse').value;
+            const dateVisite = document.getElementById('dateVisite').value;
+            const notes = document.getElementById('notes').value;
+
+            if (!adresse || !dateVisite) {
+                alert('Veuillez renseigner l\'adresse et la date de visite');
+                return;
+            }
+
+            const score = calculerScore(currentAnswers);
+
+            const visite = {
+                id: Date.now(),
+                adresse,
+                date: dateVisite,
+                notes,
+                reponses: {...currentAnswers},
+                score,
+                dateCreation: new Date().toISOString()
+            };
+
+            visites.push(visite);
+            localStorage.setItem('visites', JSON.stringify(visites));
+
+            alert('✅ Visite sauvegardée avec succès !');
+            
+            // Reset
+            document.getElementById('adresse').value = '';
+            document.getElementById('dateVisite').value = '';
+            document.getElementById('notes').value = '';
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelectorAll('.question').forEach(q => q.classList.remove('answered'));
+            currentAnswers = {};
+        }
+
+        function afficherVisites() {
+            const statsDiv = document.getElementById('stats');
+            const listDiv = document.getElementById('visitsList');
+
+            if (visites.length === 0) {
+                statsDiv.innerHTML = '';
+                listDiv.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                        </svg>
+                        <h3>Aucune visite enregistrée</h3>
+                        <p>Commencez par créer votre première visite</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const scoresMoyen = Math.round(visites.reduce((acc, v) => acc + v.score, 0) / visites.length);
+
+            statsDiv.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${visites.length}</div>
+                    <div class="stat-label">Visites</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${scoresMoyen}%</div>
+                    <div class="stat-label">Score moyen</div>
+                </div>
+            `;
+
+            listDiv.innerHTML = visites.sort((a, b) => b.id - a.id).map(visite => `
+                <div class="visit-card">
+                    <div class="visit-header">
+                        <div>
+                            <div class="visit-title">${visite.adresse}</div>
+                            <div class="visit-date">📅 ${new Date(visite.date).toLocaleDateString('fr-FR')}</div>
+                        </div>
+                        <span class="score-badge ${getScoreClass(visite.score)}">
+                            ${visite.score}% - ${getScoreLabel(visite.score)}
+                        </span>
+                    </div>
+                    ${visite.notes ? `<p style="color: var(--gray-600); font-size: 13px; margin-top: 10px;">${visite.notes}</p>` : ''}
+                    <div class="visit-actions">
+                        <button class="btn btn-primary" onclick="voirDetails(${visite.id})">👁️ Détails</button>
+                        <button class="btn btn-danger" onclick="supprimerVisite(${visite.id})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function voirDetails(id) {
+            const visite = visites.find(v => v.id === id);
+            if (!visite) return;
+
+            let details = `📍 ${visite.adresse}\n📅 ${new Date(visite.date).toLocaleDateString('fr-FR')}\n⭐ Score: ${visite.score}%\n\n`;
+            
+            for (const [key, value] of Object.entries(visite.reponses)) {
+                details += `• ${key}: ${value}\n`;
+            }
+
+            if (visite.notes) {
+                details += `\n📝 Notes: ${visite.notes}`;
+            }
+
+            alert(details);
+        }
+
+        function supprimerVisite(id) {
+            if (!confirm('Voulez-vous vraiment supprimer cette visite ?')) return;
+            
+            const index = visites.findIndex(v => v.id === id);
+            visites.splice(index, 1);
+            localStorage.setItem('visites', JSON.stringify(visites));
+            afficherVisites();
+        }
+
+        function afficherComparaison() {
+            const div = document.getElementById('comparaisonContent');
+
+            if (visites.length < 2) {
+                div.innerHTML = `
+                    <div class="empty-state">
+                        <h3>Comparaison impossible</h3>
+                        <p>Vous devez avoir au moins 2 visites enregistrées</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const sorted = [...visites].sort((a, b) => b.score - a.score);
+
+            div.innerHTML = `
+                <h3 style="margin-bottom: 20px; color: var(--gray-800);">📊 Classement de vos visites</h3>
+                ${sorted.map((visite, index) => `
+                    <div class="visit-card" style="margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-size: 24px; font-weight: 700; color: var(--gray-400);">#${index + 1}</div>
+                                <div class="visit-title">${visite.adresse}</div>
+                                <div class="visit-date">📅 ${new Date(visite.date).toLocaleDateString('fr-FR')}</div>
+                            </div>
+                            <span class="score-badge ${getScoreClass(visite.score)}" style="font-size: 18px; padding: 8px 16px;">
+                                ${visite.score}%
+                            </span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${visite.score}%"></div>
+                        </div>
+                    </div>
+                `).join('')}
+            `;
+        }
+
+        // Initialisation
+        document.getElementById('dateVisite').valueAsDate = new Date();
+    </script>
+</body>
+</html>
